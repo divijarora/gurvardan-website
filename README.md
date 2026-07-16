@@ -1,25 +1,39 @@
-# CODING AGENTS: READ THIS FIRST
+# Gurvardan Website
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+Static website for **Gurvardan Physiotherapy &amp; Fitness Clinic** and **Gurvardan Yoga Studio** (West Patel Nagar, New Delhi).
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+## Structure
 
-## What you should do — IMPORTANT
+```
+index.html      Clinic homepage ("Mix" design — royal blue/green brand + bold type)
+yoga.html       Gurvardan Yoga Studio page
+styles.css      Shared resets, fonts, animations
+script.js       Enquiry form → WhatsApp handoff
+assets/         Logo and other static assets
+```
 
-**Read the chat transcripts first.** There are 2 chat transcript(s) in `chats/`. The transcripts show the full back-and-forth between the user and the design assistant — they tell you **what the user actually wants** and **where they landed** after iterating. Don't skip them. The final HTML files are the output, but the chat is where the intent lives.
+Plain HTML/CSS/JS — no build step, no dependencies.
 
-**Read `project/Gurvardan Website.dc.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+`chats/` and `project/` contain the original Claude Design handoff (design prototype + conversation transcripts) this site was built from, kept for reference.
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+## Local development
 
-## About the design files
+Any static file server works, e.g.:
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+```
+npx http-server . -p 8080
+```
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+Then open `http://localhost:8080/index.html`.
 
-## Bundle contents
+## Deployment
 
-- `README.md` — this file
-- `chats/` — conversation transcripts (read these!)
-- `project/` — the `Gurvardan Website Redesign Project` project files (HTML prototypes, assets, components)
+This is a zero-config static site, deployable anywhere:
+
+- **GitHub Pages** — a workflow at `.github/workflows/deploy.yml` deploys `main` automatically once Pages is enabled for this repo (Settings → Pages → Source: GitHub Actions).
+- **Vercel / Netlify** — import the repo with no build command and an output/publish directory of `/`.
+
+## Content notes
+
+- Photos are stock placeholders (Pexels) — swap in real clinic/studio photos when available.
+- The yoga weekly schedule, instructor name, and fees are inferred placeholders — confirm the real details and update `yoga.html` accordingly.
