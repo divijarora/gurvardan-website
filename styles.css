@@ -20,3 +20,56 @@ input,textarea,select,button{font-family:inherit}
 .gv-marquee-track{display:flex;width:max-content;animation:gvmarquee 30s linear infinite}
 
 .gv-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border:0}
+
+/* ============================================================
+   Responsive layout — mobile / tablet / desktop
+   The page markup uses inline fixed grids (no breakpoints of its
+   own), so these rules override those grids at narrow widths.
+   Attribute selectors + !important beat the inline styles.
+   ============================================================ */
+
+/* Clip decorative shapes that sit a few px outside the viewport,
+   without turning the page into a scroll container (which would
+   break the sticky header). overflow-x:clip keeps the Y axis visible;
+   older Safari (<16) ignores it and simply shows the shapes. */
+.gv-page{overflow-x:clip}
+
+/* Cross-browser backdrop blur for the sticky header (Safari needs the
+   -webkit- prefix, which the inline style doesn't carry). */
+[style*="backdrop-filter:blur(12px)"]{-webkit-backdrop-filter:blur(12px)}
+
+/* Prevent long words / URLs from forcing horizontal scroll anywhere. */
+h1,h2,h3,p,a,span{overflow-wrap:break-word}
+
+/* ---------- Header: wrap nav below the logo on smaller screens ---------- */
+@media (max-width:860px){
+  .gv-header{flex-wrap:wrap;justify-content:space-between;gap:12px 16px !important}
+  .gv-nav{order:3;width:100%;flex:0 1 auto !important;margin:0 !important;
+          justify-content:center;flex-wrap:wrap;gap:12px 18px !important}
+}
+
+/* ---------- Tablet (≤960px) ---------- */
+@media (max-width:960px){
+  /* 4-up card grids → 2-up */
+  [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr) !important}
+  /* 2-column hero / about / why / contact / form-row → stacked */
+  [style*="grid-template-columns:1.08fr .92fr"],
+  [style*="grid-template-columns:1.05fr .95fr"],
+  [style*="grid-template-columns:1.1fr .9fr"],
+  [style*="grid-template-columns:.95fr 1.05fr"],
+  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;gap:34px !important}
+  /* footer 3-col → 2-col */
+  [style*="grid-template-columns:1.5fr 1fr 1fr"]{grid-template-columns:1fr 1fr !important}
+}
+
+/* ---------- Phone (≤640px) ---------- */
+@media (max-width:640px){
+  /* everything multi-column → single column */
+  [style*="grid-template-columns:repeat(4,1fr)"],
+  [style*="grid-template-columns:repeat(3,1fr)"],
+  [style*="grid-template-columns:1.5fr 1fr 1fr"]{grid-template-columns:1fr !important}
+  /* fluid hero headline so it never clips */
+  .gv-h1{font-size:clamp(34px,8.6vw,46px) !important;line-height:1.07 !important}
+  /* weekly-schedule table keeps its 3 columns but tightens to fit */
+  [style*="grid-template-columns:1fr 1.3fr 1fr"]{padding-left:14px !important;padding-right:14px !important}
+}
